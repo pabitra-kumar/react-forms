@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { Navbar } from './components/Navbar';
+import { BasicForm } from './pages/BasicForm';
+import { JobForm } from './pages/JobForm';
+import { AdvancedForm } from './pages/AdvancedForm';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<BasicForm />} />
+        <Route path="/basic_form" element={<BasicForm />} />
+        <Route path="/job_form" element={<JobForm />} />
+        <Route path="/advanced_form" element={<AdvancedForm />} />
+      </Routes>
+    </>
   );
 }
 
