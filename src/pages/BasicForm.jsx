@@ -8,38 +8,70 @@ export const BasicForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const [frm, setFrm] = useState(true);
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        setFrm(false)
         console.log(formData)
     }
-    return (
-        <main className='px-[10vw] py-5'>
-            <header className='text-3xl font-semibold py-2'>
-                Event Registration form
-            </header>
-            <form className='flex flex-col gap-2 w-1/2 max-md:w-full max-lg:w-3/4' onSubmit={handleSubmit}>
-                <label htmlFor='name'>Name</label>
-                <input type='text' id='name' name='name' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} required />
-                <label htmlFor='email'>Email</label>
-                <input type='email' id='email' name='email' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} required />
-                <label htmlFor='age'>Age</label>
-                <input type='number' id='age' name='age' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} min={1} />
-                <label htmlFor='guest'>Are you attending with a guest?</label>
-                <select name='guest' defaultValue={'no'} id='guest' className='p-2 border border-gray-300 rounded-md w-1/2' onChange={handleChange}>
-                    <option value='yes' onChange={handleChange}>Yes</option>
-                    <option value='no' onChange={handleChange}>No</option>
-                </select>
-                {
-                    formData?.guest === 'yes' && (
-                        <>
-                            <label htmlFor='guest_name'>Guest Name</label>
-                            <input type='text' id='guest_name' name='guest_name' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} />
-                        </>
-                    )
-                }
-                < hr />
-                <button type='submit' className='bg-blue-500 text-white p-2 rounded-md'>Submit</button>
-            </form>
-        </main>
-    )
+
+    const fillFormAgain = () => {
+        setFrm(true)
+        setFormData({ name: '', email: '', age: '', guest: 'no', guest_name: '' })
+    }
+    if (!frm) {
+        return (
+            <main className='w-full min-h-[100vh] flex justify-center items-center'>
+                <div className='bg-green-100 p-5 rounded-md'>
+                    <h1 className='text-2xl font-semibold'>Your form has been submitted successfully!</h1>
+                    <p className='text-lg'>Name: {formData.name}</p>
+                    <p className='text-lg'>Email: {formData.email}</p>
+                    <p className='text-lg'>Age: {formData.age}</p>
+                    <p className='text-lg'>Attending with a guest: {formData.guest}</p>
+                    {
+                        formData?.guest === 'yes' && (
+                            <p className='text-lg'>Guest Name: {formData.guest_name}</p>
+                        )
+                    }
+                    {/* fill form again button */}
+                    <button className='bg-blue-500 text-white p-2 rounded-md mt-2' onClick={fillFormAgain}>Fill form again</button>
+                </div>
+
+
+            </main>
+        )
+    }
+    else {
+        return (
+            <main className='px-[10vw] py-5'>
+                <header className='text-3xl font-semibold py-2'>
+                    Event Registration form
+                </header>
+                <form className='flex flex-col gap-2 w-1/2 max-md:w-full max-lg:w-3/4' onSubmit={handleSubmit}>
+                    <label htmlFor='name'>Name</label>
+                    <input type='text' id='name' name='name' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} required />
+                    <label htmlFor='email'>Email</label>
+                    <input type='email' id='email' name='email' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} required />
+                    <label htmlFor='age'>Age</label>
+                    <input type='number' id='age' name='age' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} min={1} />
+                    <label htmlFor='guest'>Are you attending with a guest?</label>
+                    <select name='guest' defaultValue={'no'} id='guest' className='p-2 border border-gray-300 rounded-md w-1/2' onChange={handleChange}>
+                        <option value='yes' onChange={handleChange}>Yes</option>
+                        <option value='no' onChange={handleChange}>No</option>
+                    </select>
+                    {
+                        formData?.guest === 'yes' && (
+                            <>
+                                <label htmlFor='guest_name'>Guest Name</label>
+                                <input type='text' id='guest_name' name='guest_name' className='p-2 border border-gray-300 rounded-md' onChange={handleChange} />
+                            </>
+                        )
+                    }
+                    < hr />
+                    <button type='submit' className='bg-blue-500 text-white p-2 rounded-md'>Submit</button>
+                </form>
+            </main>
+        )
+    }
 }
