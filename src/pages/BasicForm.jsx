@@ -23,7 +23,7 @@ export const BasicForm = () => {
     if (!frm) {
         return (
             <main className='w-full min-h-[100vh] flex justify-center items-center'>
-                <div className='bg-green-100 p-5 rounded-md'>
+                <div className='bg-green-100 p-5 rounded-lg'>
                     <h1 className='text-2xl font-semibold'>Your form has been submitted successfully!</h1>
                     <p className='text-lg'>Name: {formData.name}</p>
                     <p className='text-lg'>Email: {formData.email}</p>
